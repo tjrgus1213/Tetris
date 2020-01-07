@@ -5,6 +5,6 @@
 #include "title.h"
 #include <time.h>
 
-void blockdrop(int block);
+bool blockdrop(int block);
 void gameinit();
 #endif

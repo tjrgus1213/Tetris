@@ -10,8 +10,8 @@ int main() {
 			outlineDraw();
 			gameinit();
 			srand((unsigned int)time(0));
-			while(true)
-				blockdrop(rand() % 7);
+			while (blockdrop(rand() % 7));
+			system("pause"); // game over
 			break;
 		case 1:
 			infoDraw();
