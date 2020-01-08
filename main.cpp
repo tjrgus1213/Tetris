@@ -5,13 +5,22 @@ int main() {
 	while (true) {
 		titleDraw();
 		int menu = menuDraw();
+		int level = 1;
+		bool gameover;
+
 		switch (menu) {
 		case 0:
-			outlineDraw();
-			gameinit();
-			srand((unsigned int)time(0));
-			while (blockdrop(rand() % 7));
-			system("pause"); // game over
+			do {
+				system("cls");
+				gotoxy(26, 9);
+				printf(" L E V E L   %d", level);
+				Sleep(1000);
+				outlineDraw();
+				gameinit();
+				gameover = gameStart(level);
+				level++;
+			} while (gameover);
+
 			break;
 		case 1:
 			infoDraw();

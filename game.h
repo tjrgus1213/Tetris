@@ -5,6 +5,7 @@
 #include "title.h"
 #include <time.h>
 
-bool blockdrop(int block);
+bool blockdrop(double speed, int &line, int type);
+bool gameStart(int level);
 void gameinit();
 #endif
