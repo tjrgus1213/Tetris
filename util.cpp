@@ -2,7 +2,7 @@
 
 
 void init() {
-	system("mode con cols=65 lines=20 | title 霸 烙 力 格");
+	system("mode con cols=65 lines=25 | title 霸 烙 力 格");
 	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO ConsoleCursor;
 	ConsoleCursor.bVisible = 0;

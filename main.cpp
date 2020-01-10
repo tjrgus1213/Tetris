@@ -16,11 +16,13 @@ int main() {
 				printf(" L E V E L   %d", level);
 				Sleep(1000);
 				outlineDraw();
+				deadlineDraw();
 				gameinit();
 				gameover = gameStart(level);
 				level++;
 			} while (gameover);
-
+			gameoverDraw();
+			_getch();
 			break;
 		case 1:
 			infoDraw();

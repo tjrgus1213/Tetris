@@ -1,6 +1,6 @@
 #include "game.h"
 
-char ary[23][21];
+char ary[23][23];
 
 struct block {
 public:
@@ -8,46 +8,46 @@ public:
 		type = t;
 		switch (t) {
 		case 0: // 네모
-			dot[0][0] = CENTER;		dot[0][1] = 1;
-			dot[1][0] = CENTER + 2;	dot[1][1] = 1;
-			dot[2][0] = CENTER;		dot[2][1] = 2;
-			dot[3][0] = CENTER + 2;	dot[3][1] = 2;
+			dot[0][0] = CENTER;		dot[0][1] = 3;
+			dot[1][0] = CENTER + 2;	dot[1][1] = 3;
+			dot[2][0] = CENTER;		dot[2][1] = 4;
+			dot[3][0] = CENTER + 2;	dot[3][1] = 4;
 			break;
 		case 1: // 작대기
-			dot[0][0] = CENTER;	dot[0][1] = 2;
-			dot[1][0] = CENTER;	dot[1][1] = 1;
-			dot[2][0] = CENTER;	dot[2][1] = 3;
-			dot[3][0] = CENTER;	dot[3][1] = 4;
+			dot[0][0] = CENTER;	dot[0][1] = 3;
+			dot[1][0] = CENTER;	dot[1][1] = 2;
+			dot[2][0] = CENTER;	dot[2][1] = 4;
+			dot[3][0] = CENTER;	dot[3][1] = 5;
 			break;
 		case 2: // ㄱㄴ
-			dot[0][0] = CENTER;	dot[0][1] = 1;
-			dot[1][0] = CENTER - 2;	dot[1][1] = 1;
-			dot[2][0] = CENTER;	dot[2][1] = 2;
-			dot[3][0] = CENTER + 2;	dot[3][1] = 2;
+			dot[0][0] = CENTER;	dot[0][1] = 3;
+			dot[1][0] = CENTER - 2;	dot[1][1] = 3;
+			dot[2][0] = CENTER;	dot[2][1] = 4;
+			dot[3][0] = CENTER + 2;	dot[3][1] = 4;
 			break;
 		case 3: // ㄴㄱ
-			dot[0][0] = CENTER;		dot[0][1] = 1;
-			dot[1][0] = CENTER + 2;	dot[1][1] = 1;
-			dot[2][0] = CENTER;		dot[2][1] = 2;
-			dot[3][0] = CENTER - 2;	dot[3][1] = 2;
+			dot[0][0] = CENTER;		dot[0][1] = 3;
+			dot[1][0] = CENTER + 2;	dot[1][1] = 3;
+			dot[2][0] = CENTER;		dot[2][1] = 4;
+			dot[3][0] = CENTER - 2;	dot[3][1] = 4;
 			break;
 		case 4: // ㄱ
-			dot[0][0] = CENTER + 2;	dot[0][1] = 1;
-			dot[1][0] = CENTER;		dot[1][1] = 1;
-			dot[2][0] = CENTER + 4;	dot[2][1] = 1;
-			dot[3][0] = CENTER + 4;	dot[3][1] = 2;
+			dot[0][0] = CENTER + 2;	dot[0][1] = 3;
+			dot[1][0] = CENTER;		dot[1][1] = 3;
+			dot[2][0] = CENTER + 4;	dot[2][1] = 3;
+			dot[3][0] = CENTER + 4;	dot[3][1] = 4;
 			break;
 		case 5: // ㄴ
-			dot[0][0] = CENTER + 2;	dot[0][1] = 1;
-			dot[1][0] = CENTER;		dot[1][1] = 1;
-			dot[2][0] = CENTER + 4;	dot[2][1] = 1;
-			dot[3][0] = CENTER;		dot[3][1] = 2;
+			dot[0][0] = CENTER + 2;	dot[0][1] = 3;
+			dot[1][0] = CENTER;		dot[1][1] = 3;
+			dot[2][0] = CENTER + 4;	dot[2][1] = 3;
+			dot[3][0] = CENTER;		dot[3][1] = 4;
 			break;
 		case 6: // ㅗ
-			dot[0][0] = CENTER + 2;	dot[0][1] = 1;
-			dot[1][0] = CENTER;		dot[1][1] = 2;
-			dot[2][0] = CENTER + 2;	dot[2][1] = 2;
-			dot[3][0] = CENTER + 4;	dot[3][1] = 2;
+			dot[0][0] = CENTER + 2;	dot[0][1] = 3;
+			dot[1][0] = CENTER;		dot[1][1] = 4;
+			dot[2][0] = CENTER + 2;	dot[2][1] = 4;
+			dot[3][0] = CENTER + 4;	dot[3][1] = 4;
 			break;
 		}
 	}
@@ -139,8 +139,8 @@ public:
 	}
 
 	bool isfull() {
-		for (int i = 0; i < 4; i++) {
-			if (ary[dot[i][0] - LEFT_LINE][dot[i][1]] == '#')
+		for (int i = 2; i < 22; i+=2) {
+			if (ary[i][6] == '#')
 				return true;
 		}
 		return false;
@@ -174,7 +174,7 @@ public:
 			}
 		}
 		if (ind > 0) {
-			for (int y = 1; y < 18; y++) {
+			for (int y = 4; y < 22; y++) {
 				gotoxy(LEFT_LINE + 2, y);
 				for (int x = 2; x < 22; x += 2) {
 					if (ary[x][y] == '#')
@@ -183,6 +183,7 @@ public:
 						printf("  ");
 				}
 			}
+			deadlineDraw();
 		}
 		return ind;
 	}
@@ -223,38 +224,41 @@ private:
 
 void gameinit() {
 	for (int i = 1; i < 23; i++)
-		for (int j = 0; j < 20; j++)
+		for (int j = 0; j < 22; j++)
 			ary[i][j] = ' ';
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 22; i++)
 		ary[0][i] = '#';
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 22; i++)
 		ary[22][i] = '#';
 	for (int i = 0; i < 23; i++)
-		ary[i][18] = '#';
+		ary[i][22] = '#';
 }
 
 bool gameStart(int level) {
-	int line = 2;
-	int pre_block, now_block;
+	int line = 10;
+	int next_block, now_block;
 	double speed;
 
 	srand((unsigned int)time(0));
-	pre_block = rand() % 7;
+	next_block = rand() % 7;
 
 	while (true) {
-		now_block = pre_block;
-		pre_block = rand() % 7;
-		speed = 0.3 / level;
-
-		gotoxy(0, 0);
+		speed = 0.5 * pow(0.7, level - 1);
+		gotoxy(INFO_LEFT_LINE + 10, 20);
+		printf("    ");
+		gotoxy(INFO_LEFT_LINE + 10, 20);
 		printf("%d", level);
 
-		while (blockdrop(speed, line, now_block)) {
-			now_block = pre_block;
-			pre_block = rand() % 7;
-			gotoxy(0, 1);
+		 do {
+			now_block = next_block;
+			next_block = rand() % 7;
+			nextBlockDraw(next_block);
+			gotoxy(INFO_LEFT_LINE + 10, 14);
+			printf("    ");
+			gotoxy(INFO_LEFT_LINE + 10, 14);
 			printf("%d", line);
-		}
+		 } while (blockdrop(speed, line, now_block));
+
 		if (line > 0) {
 			//gameover
 			return false;
@@ -280,11 +284,13 @@ bool blockdrop(double speed, int &line, int type) {
 			case LEFT:
 				nb.removeBlock();
 				nb.moveBlock(LEFT);
+				deadlineDraw();
 				nb.printBlock();
 				break;
 			case RIGHT:
 				nb.removeBlock();
 				nb.moveBlock(RIGHT);
+				deadlineDraw();
 				nb.printBlock();
 				break;
 			case DOWN:
@@ -293,6 +299,7 @@ bool blockdrop(double speed, int &line, int type) {
 			case SUBMIT:
 				nb.removeBlock();
 				nb.turnBlock();
+				deadlineDraw();
 				nb.printBlock();
 				break;
 			}
@@ -311,6 +318,7 @@ bool blockdrop(double speed, int &line, int type) {
 		}
 		else {
 			drop = false;
+			deadlineDraw();
 			nb.printBlock();
 		}
 	}
